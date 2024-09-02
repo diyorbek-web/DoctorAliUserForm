@@ -26,12 +26,20 @@ const User = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, lastName, phoneNumber } = formData;
+    const {
+      firstName,
+      lastName,
+      birthDate,
+      address,
+      status,
+      phoneNumber,
+      additionalPhoneNumber,
+    } = formData;
     if (!firstName || !lastName || !phoneNumber) {
-      setMessage("Iltimos, barcha maydonlarni to'ldiring.");
+      setMessage("Iltimos, majburiy maydonlarni to'ldiring.");
       return;
     }
-    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nFamilya: ${lastName}\nTelefon: ${phoneNumber}`;
+    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nFamilya: ${lastName}\nTugilgan kuni: ${birthDate}\nManzil: ${address}\nStatus: ${status}\nTelefon: ${phoneNumber}\n Qoshimcha telefon raqam: ${additionalPhoneNumber}`;
     try {
       await SendMessage(message);
       setMessage("Ma'lumotlar muvaffaqiyatli yuborildi!");
