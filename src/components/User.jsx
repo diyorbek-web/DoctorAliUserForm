@@ -1,7 +1,7 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState } from "react";
 import Header from "./Header";
 import SendMessage from "./SendMessage";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 const User = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +14,7 @@ const User = () => {
     additionalPhoneNumber: "",
   });
   const [message, setMessage] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,17 +32,23 @@ const User = () => {
       return;
     }
     const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nFamilya: ${lastName}\nTelefon: ${phoneNumber}`;
-    await SendMessage(message);
-    setMessage("Ma'lumotlar muvaffaqiyatli yuborildi!");
-    setFormData({
-      firstName: "",
-      lastName: "",
-      birthDate: "",
-      address: "",
-      status: "",
-      phoneNumber: "",
-      additionalPhoneNumber: "",
-    });
+    try {
+      await SendMessage(message);
+      setMessage("Ma'lumotlar muvaffaqiyatli yuborildi!");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        address: "",
+        status: "",
+        phoneNumber: "",
+        additionalPhoneNumber: "",
+      });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000); // Ikona 3 soniya davomida ko'rinadi
+    } catch (error) {
+      setMessage("Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.");
+    }
   };
 
   return (
@@ -156,6 +163,15 @@ const User = () => {
         </button>
         {message && <p className="mt-4 text-white text-center">{message}</p>}
       </form>
+
+      {submitted && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg flex items-center justify-center flex-col">
+            <AiOutlineCheckCircle className="text-green-500 text-4xl mb-4" />
+            <p className="text-2xl font-semibold text-gray-800">Bajarildi</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
