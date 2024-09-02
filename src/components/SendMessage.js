@@ -17,6 +17,4 @@ const sendMessage = async (message) => {
   }
 };
 
-// Xabar yuboring
-sendMessage("Salom, bu botdan xabar!");
 export default sendMessage;
