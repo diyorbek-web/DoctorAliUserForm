@@ -60,7 +60,7 @@ const User = () => {
         className="bg-[#006051] p-6 rounded-lg shadow-lg max-w-lg mx-auto"
       >
         <h1 className="text-[20px] md:mt-0 mt-[-20px] font-semibold text-white mb-6 text-center">
-          Foydalanuvchi Ma'lumotlarini Kiriting
+          Ma’lumotlaringizni tekshirib qoldiring, o’zimiz aloqaga chiqamiz!
         </h1>
         <div className="mb-4">
           <label className="block text-white text-sm font-medium mb-2">
