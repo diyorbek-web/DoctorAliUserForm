@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Token va chat ID ni o'zgartiring
 const token = "7409721677:AAFWLTjkNfRkNJ1ypwsP5DqXDjq88-hrsek";
-const chatId = "1002151307536"; // Foydalanuvchi yoki guruh chat ID sini o'zgartiring
+const chatId = "-1002151307536"; // Foydalanuvchi yoki guruh chat ID sini o'zgartiring
 
 // Xabar yuborish
 const sendMessage = async (message) => {
