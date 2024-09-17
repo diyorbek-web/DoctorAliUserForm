@@ -23,19 +23,18 @@ const User = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, phoneNumber, address, addressTwo } = formData;
-    if (!firstName || !phoneNumber || !address || !addressTwo) {
+    const { firstName, phoneNumber, addressTwo } = formData;
+    if (!firstName || !phoneNumber || !addressTwo) {
       setMessage("Iltimos, majburiy maydonlarni to'ldiring.");
       return;
     }
-    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nTelefon: ${phoneNumber}\nViloyat: ${address}\nStatus: ${addressTwo}`;
+    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nTelefon: ${phoneNumber}\nYashash manzili: ${addressTwo}`;
     try {
       await SendMessage(message); // SendMessage funksiyasi to'g'ri ishlashini tekshiring
       setMessage("Ma'lumotlar muvaffaqiyatli yuborildi!");
       setFormData({
         firstName: "",
         phoneNumber: "",
-        address: "",
         addressTwo: "",
       });
       setSubmitted(true);
@@ -74,30 +73,7 @@ const User = () => {
             placeholder="Telefon raqamingiz..."
           />
         </div>
-        <div className="mb-4">
-          <select
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
-          >
-            <option value="">Viloyatni tanlang</option>
-            <option value="Andijon">Andijon</option>
-            <option value="Buxoro">Buxoro</option>
-            <option value="Farg'ona">Farg'ona</option>
-            <option value="Jizzax">Jizzax</option>
-            <option value="Xorazm">Xorazm</option>
-            <option value="Namangan">Namangan</option>
-            <option value="Navoiy">Navoiy</option>
-            <option value="Qashqadaryo">Qashqadaryo</option>
-            <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
-            <option value="Samarqand">Samarqand</option>
-            <option value="Sirdaryo">Sirdaryo</option>
-            <option value="Surxondaryo">Surxondaryo</option>
-            <option value="Toshkent viloyati">Toshkent (viloyati)</option>
-            <option value="Toshkent shahar">Toshkent (shahar)</option>
-          </select>
-        </div>
+
         <div className="mb-4">
           <input
             type="text"
@@ -105,7 +81,7 @@ const User = () => {
             value={formData.addressTwo}
             onChange={handleChange}
             className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
-            placeholder="Shahar yoki tuman..."
+            placeholder="Yashash manzilingiz..."
           />
         </div>
 
