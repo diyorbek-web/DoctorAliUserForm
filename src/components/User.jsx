@@ -6,12 +6,9 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 const User = () => {
   const [formData, setFormData] = useState({
     firstName: "",
-    lastName: "",
-    birthDate: "",
-    address: "",
-    status: "",
     phoneNumber: "",
-    additionalPhoneNumber: "",
+    address: "",
+    addressTwo: "",
   });
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -26,31 +23,20 @@ const User = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {
-      firstName,
-      lastName,
-      birthDate,
-      address,
-      status,
-      phoneNumber,
-      additionalPhoneNumber,
-    } = formData;
-    if (!firstName || !lastName || !phoneNumber) {
+    const { firstName, phoneNumber, address, addressTwo } = formData;
+    if (!firstName || !phoneNumber || !address || !addressTwo) {
       setMessage("Iltimos, majburiy maydonlarni to'ldiring.");
       return;
     }
-    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nFamilya: ${lastName}\nTugilgan kuni: ${birthDate}\nManzil: ${address}\nStatus: ${status}\nTelefon: ${phoneNumber}\n Qoshimcha telefon raqam: ${additionalPhoneNumber}`;
+    const message = `Yangi foydalanuvchi ma'lumotlari:\n\nIsm: ${firstName}\nTelefon: ${phoneNumber}\nViloyat: ${address}\nStatus: ${addressTwo}`;
     try {
-      await SendMessage(message);
+      await SendMessage(message); // SendMessage funksiyasi to'g'ri ishlashini tekshiring
       setMessage("Ma'lumotlar muvaffaqiyatli yuborildi!");
       setFormData({
         firstName: "",
-        lastName: "",
-        birthDate: "",
-        address: "",
-        status: "",
         phoneNumber: "",
-        additionalPhoneNumber: "",
+        address: "",
+        addressTwo: "",
       });
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000); // Ikona 3 soniya davomida ko'rinadi
@@ -60,116 +46,75 @@ const User = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-6 bg-[#498E84]">
+    <div className="w-full h-screen mx-auto p-6 bg-[#035D56]">
       <Header />
 
       <form
         onSubmit={handleSubmit}
-        className="bg-[#006051] p-6 rounded-lg shadow-lg max-w-lg mx-auto"
+        className="bg-white p-6 rounded-[17px] max-w-[26rem] mx-auto"
       >
-        <h1 className="text-[20px] md:mt-0 mt-[-20px] font-semibold text-white mb-6 text-center">
-          Ma’lumotlaringizni tekshirib qoldiring, o’zimiz aloqaga chiqamiz!
-        </h1>
         <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Ism *(majburiy)
-          </label>
           <input
             type="text"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-            placeholder="Ismingizni kiriting"
+            className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
+            placeholder="Ism familyangiz..."
           />
         </div>
+
         <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Familya *(majburiy)
-          </label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-            placeholder="Familyangizni kiriting"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Tugilgan sana
-          </label>
-          <input
-            type="date"
-            name="birthDate"
-            value={formData.birthDate}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Yashash manzili
-          </label>
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-            placeholder="Yashash manzilingizni kiriting"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Hozirgi holati
-          </label>
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-          >
-            <option value="">Holatni tanlang</option>
-            <option value="o'qiyman">O'qiyapman</option>
-            <option value="ishlayman">Ishlayapman</option>
-            <option value="ishsizman">Ishsizman</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Bog'lanish uchun telefon raqam *(majburiy)
-          </label>
           <input
             type="tel"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-            placeholder="Telefon raqamingizni kiriting"
+            className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
+            placeholder="Telefon raqamingiz..."
           />
         </div>
         <div className="mb-4">
-          <label className="block text-white text-sm font-medium mb-2">
-            Qo'shimcha telefon raqam
-          </label>
-          <input
-            type="tel"
-            name="additionalPhoneNumber"
-            value={formData.additionalPhoneNumber}
+          <select
+            name="address"
+            value={formData.address}
             onChange={handleChange}
-            className="border border-gray-300 rounded-md p-2 w-full text-gray-900"
-            placeholder="Qo'shimcha telefon raqam (ixtiyoriy)"
+            className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
+          >
+            <option value="">Viloyatni tanlang</option>
+            <option value="Andijon">Andijon</option>
+            <option value="Buxoro">Buxoro</option>
+            <option value="Farg'ona">Farg'ona</option>
+            <option value="Jizzax">Jizzax</option>
+            <option value="Xorazm">Xorazm</option>
+            <option value="Namangan">Namangan</option>
+            <option value="Navoiy">Navoiy</option>
+            <option value="Qashqadaryo">Qashqadaryo</option>
+            <option value="Qoraqalpog'iston">Qoraqalpog'iston</option>
+            <option value="Samarqand">Samarqand</option>
+            <option value="Sirdaryo">Sirdaryo</option>
+            <option value="Surxondaryo">Surxondaryo</option>
+            <option value="Toshkent viloyati">Toshkent (viloyati)</option>
+            <option value="Toshkent shahar">Toshkent (shahar)</option>
+          </select>
+        </div>
+        <div className="mb-4">
+          <input
+            type="text"
+            name="addressTwo"
+            value={formData.addressTwo}
+            onChange={handleChange}
+            className="border border-gray-300 rounded-xl p-2 w-full text-gray-900"
+            placeholder="Shahar yoki tuman..."
           />
         </div>
+
         <button
           type="submit"
           className="bg-teal-600 text-white py-2 px-4 rounded-md w-full hover:bg-teal-700 transition"
         >
           Yuborish
         </button>
-        {message && <p className="mt-4 text-white text-center">{message}</p>}
       </form>
 
       {submitted && (
